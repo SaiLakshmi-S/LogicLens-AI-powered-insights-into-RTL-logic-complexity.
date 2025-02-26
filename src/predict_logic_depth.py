@@ -1,23 +1,41 @@
-
-import subprocess
+import torch
+import json
 import os
+from models.model import LogicDepthModel  # Assuming model is in models/
 
-def extract_features(input_file, output_file="data/rtl_features.json"):
-    """Runs Yosys to extract RTL features and stores them as a JSON file."""
-    yosys_script = f"""
-    read_verilog {input_file}
-    hierarchy -top top
-    proc; opt; fsm; memory; techmap
-    stat -json > {output_file}
-    """
-    
-    with open("temp_script.ys", "w") as f:
-        f.write(yosys_script)
-    
-    subprocess.run(["yosys", "-s", "temp_script.ys"], check=True)
-    os.remove("temp_script.ys")
+def load_model(model_path="models/gnn_ml_model.pth"):
+    """Loads the trained GNN + ML model."""
+    model = LogicDepthModel()
+    model.load_state_dict(torch.load(model_path))
+    model.eval()
+    return model
 
-    print(f"Features extracted and saved in {output_file}")
+def predict_logic_depth(input_file, model):
+    """Predicts the combinational logic depth using the trained model."""
+    with open(input_file, "r") as f:
+        features = json.load(f)  # Load extracted features
+
+    # Convert features to model input (this depends on training setup)
+    model_input = torch.tensor([features[key] for key in sorted(features.keys())]).float()
+    
+    with torch.no_grad():
+        prediction = model(model_input)
+
+    return prediction.item()
 
 if __name__ == "__main__":
-    extract_features("data/sample_rtl.v")
+    input_file = "data/rtl_features.json"
+    output_file = "results/logic_depth_predictions.json"
+
+    if not os.path.exists(input_file):
+        print("Feature extraction missing! Run extract_features.py first.")
+        exit()
+
+    model = load_model()
+    prediction = predict_logic_depth(input_file, model)
+
+    with open(output_file, "w") as f:
+        json.dump({"predicted_logic_depth": prediction}, f, indent=4)
+
+    print(f"Prediction saved in {output_file}")
+
