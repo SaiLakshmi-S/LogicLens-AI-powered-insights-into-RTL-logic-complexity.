@@ -1,1 +1,15 @@
+This file lists all the dependencies needed for your LogicDepthAI project. You can install them using:
 
+pip install -r requirements.txt
+
+numpy
+pandas
+torch
+torchvision
+torchaudio
+scikit-learn
+networkx
+matplotlib
+tqdm
+jupyter
+pyverilog
