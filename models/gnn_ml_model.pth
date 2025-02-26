@@ -1,1 +1,2 @@
 
+python src/train_model.py --dataset data/training_dataset.csv
