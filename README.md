@@ -1,4 +1,4 @@
-# LogicLens-AI-powered-insights-into-RTL-logic-complexity.
+# LogicLens-AI powered insights into RTL logic complexity.
 ## Project Overview
 **LogicDepthAI** is an **AI-driven solution** designed for **VLSI engineers** to predict the **combinational logic depth** of signals in RTL designs **before synthesis**. Traditional synthesis-based timing analysis is **time-consuming**, but our **Graph Neural Network (GNN) + traditional ML hybrid model** enables **fast and accurate** depth estimation. This helps in **early detection of timing violations**, optimizing the design process, and reducing iteration time.
 
