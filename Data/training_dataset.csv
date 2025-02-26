@@ -1,1 +1,6 @@
+fan_in,fan_out,num_gates,logic_depth
+2,3,5,3
+3,2,7,4
+1,4,6,2
+2,2,8,5
 
