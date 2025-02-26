@@ -68,10 +68,10 @@ python src/train_model.py --dataset data/training_dataset.csv
 ## Dataset Description
 
 The dataset consists of **RTL netlists and extracted features**, including:
-✔ **Fan-in/Fan-out of signals**  
-✔ **Number of logic gates in the path**  
-✔ **Signal dependencies (modeled as a graph)**  
-✔ **Actual logic depth from synthesis reports**  
+- **Fan-in/Fan-out of signals**  
+- **Number of logic gates in the path**  
+- **Signal dependencies (modeled as a graph)**  
+- **Actual logic depth from synthesis reports**  
 
 **Sources**:
 - Generated from open-source RTL designs.
